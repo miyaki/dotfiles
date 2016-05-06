@@ -1,0 +1,8 @@
+[install]
+prefix=/usr/local
+install_lib = /usr/local/lib/python2.7/site-packages
+install_scripts = /usr/local/bin
+
+[easy_install]
+site-dirs=/usr/local/lib/python2.7/site-packages
+

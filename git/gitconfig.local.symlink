@@ -1,0 +1,5 @@
+[user]
+        name = Takashi Miyaki
+        email = miyaki@acm.org
+[credential]
+        helper = cache

@@ -1,0 +1,29 @@
+[ui]
+username = Takashi Miyaki <miyaki@acm.org>
+ignore = ~/.hgignore_global
+
+[extensions]
+hgext.bookmarks =
+hgext.convert =
+progress =
+hgshelve =~/.hgext/hgshelve.py
+#hgattic = ~/.hgext/attic.py
+pager =
+
+[diff]
+git = True
+
+[alias]
+show = log --color=always -pr
+slog = log --template '{rev}:{node|short} {desc|firstline}\n'
+nudge = push --rev .
+
+[hooks]
+pretxncommit.trello = python:~/.hgext/trello.py:comment_changeset
+
+[trello]
+user = @miyaki
+board = GIS53ZTR
+key = <key>
+token_read = <token>
+token_write = <token>

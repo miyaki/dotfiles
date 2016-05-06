@@ -1,0 +1,37 @@
+### .subversion/config
+### $Date:$
+###
+
+[auth]
+
+[helpers]
+
+[tunnels]
+
+[miscellany]
+global-ignores = *.o *.lo *.la #*# .*.rej *.rej .*~ *~ .#* .DS_Store semantic.cache Thumbs.db *.ncb *.suo *.obj *.ilk *.pdb *.pch *.manifest *.user *.bak *.bb *.bbl *.blg *.log *.dvi a.out *.aux *_flymake *.class *.pyc *.elf *.sym *.eep *.map *.lss *.lst .dep *.orig
+enable-auto-props = yes
+
+[auto-props]
+*.c = svn:eol-style=native;svn:keywords=Id
+*.cc = svn:eol-style=native;svn:keywords=Id
+*.cpp = svn:eol-style=native;svn:keywords=Id
+*.hpp = svn:eol-style=native;svn:keywords=Id
+*.h = svn:eol-style=native;svn:keywords=Id
+*.cs = svn:eol-style=native;svn:keywords=Id
+*.dsp = svn:eol-style=CRLF
+*.dsw = svn:eol-style=CRLF
+*.sh = svn:eol-style=native;svn:keywords=Id;svn:executable
+*.txt = svn:eol-style=native;svn:keywords=Id
+*.png = svn:mime-type=image/png
+*.jpg = svn:mime-type=image/jpeg
+*.tex = svn:eol-style=native;svn:keywords=Id
+*.el = svn:eol-style=native;svn:keywords=Id
+*.py = svn:eol-style=native;svn:keywords=Id;svn:executable
+*.hs = svn:eol-style=native;svn:keywords=Id;svn:executable
+*.html = svn:eol-style=native;svn:keywords=Id
+Makefile = svn:eol-style=native;svn:keywords=Id
+config = svn:eol-style=native;svn:keywords=Id
+
+[miscellany]
+use-commit-times = yes

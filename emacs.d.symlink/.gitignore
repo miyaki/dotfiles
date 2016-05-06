@@ -1,0 +1,10 @@
+*.cache
+*.dat
+*.desktop
+*.eld
+SessionDesktop.el
+elpa
+elscreen
+smex-items
+tramp
+url

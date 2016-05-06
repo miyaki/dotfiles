@@ -1,0 +1,214 @@
+# .zshrc
+
+# source zgen
+# git clone https://github.com/tarjoilija/zgen.git .zgen
+if [[ -s "${ZDOTDIR:-$HOME}/.zgen/zgen.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zgen/zgen.zsh"
+
+  echo "Creating a zgen save"
+
+  # prezto options
+  zgen prezto editor key-bindings 'emacs'
+  zgen prezto prompt theme 'sorin'
+
+  # prezto and modules
+  zgen prezto
+  zgen prezto git
+  zgen prezto command-not-found
+  zgen prezto syntax-highlighting
+
+  # plugins
+fi
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt extended_history
+setopt share_history
+
+# hosts=(me.fam.cx $hosts)
+# usernames=(me miyaki t99886tm)
+# _cache_hosts=(`perl -ne  'if (/^([a-zA-Z0-9.-]+)/) { print "$1\n";}' ~/.ssh/known_hosts`)
+
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+
+autoload -U compinit edit-command-line vcs_info zmv
+compinit
+zle -N edit-command-line
+zmodload zsh/complist
+
+fignore=('.o' '~' '.bak' 'RCS' 'CVS')
+PROMPT='%n@%m%# '
+#RPROMPT='%~'
+
+setopt autocd automenu autolist correct nobeep nonomatch
+setopt histignoredups
+setopt notify
+setopt prompt_subst
+setopt nohup
+setopt auto_cd GLOB_COMPLETE
+setopt auto_remove_slash
+setopt extended_history hist_ignore_dups
+setopt prompt_subst
+setopt pushd_ignore_dups rm_star_silent sun_keyboard_hack
+setopt extended_glob list_types
+setopt no_beep always_last_prompt
+setopt cdable_vars sh_word_split auto_param_keys no_clobber
+setopt complete_aliases
+setopt complete_in_word auto_list
+setopt print_eight_bit
+
+#autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT="%1(v|%~:%F{green}%1v%f|%~)"
+
+bindkey -e
+bindkey ' ' magic-space
+#bindkey '^W' kill-region
+bindkey '^Q' reverse-menu-complete
+
+alias ls='ls -F' la='ls -a' l='ls -l' ll='ls -al | more' lt='ls -lt'
+alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
+alias today='date +%F'
+alias ec='emacsclient -n'
+
+setenv () {export $1="$@[2,-1]"}
+unsetenv (){unset $1}
+
+PAGER=lv
+if [ "$TERM" = "kterm" ] || [ "$TERM" = "xterm" ] || [ "$TERM" = "vt100" ] ; then
+ precmd() {
+ TITLE=`print -P $USER@%m on tty%l: %~`
+ echo -n "\e]2;$TITLE\a"
+ }
+fi
+TMOUT=0
+
+export WORDCHARS='-*?_.[]~=&;!#$%^(){}<>'
+export PAGER=lv
+export LV='-Ou8 -c'
+export EDITOR=vi
+export SVN_EDITOR=vi
+export LC_ALL='ja_JP.UTF-8'
+export LANG='ja_JP.UTF-8'
+export TZ=JST-9
+#export TZ=CET
+
+export MANPATH=/usr/local/man:$MANPATH
+
+###latex### see /usr/local/texlive/2014/texmf.cnf
+#export TEXINPUTS=~/home/share/texinputs/:
+export BIBINPUTS=.:$HOME/Projects/Publications
+PATH=/usr/local/texlive/2015/bin/x86_64-darwin:$PATH
+
+###python###
+#export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site-packages/gtk-2.0
+PATH=/usr/local/share/python:$PATH
+#export JYTHON_HOME=/usr/local/Cellar/jython/2.5.3/libexec
+
+###perl###
+#export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl
+
+###ruby###
+#export RUBYLIB=$HOME/local/lib/ruby/site_ruby/1.8:$HOME/lib/ruby
+#export GEM_PATH=$HOME/local/lib/ruby/gem
+export GEM_HOME=$HOME/.gems
+PATH=$GEM_HOME/bin:$PATH
+
+# for Go lang
+export GOPATH=$HOME
+export GOROOT=$HOME/src/github.com/golang/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+# for TinyOS
+#export TOSROOT=/opt/tinyos-2.1.0
+#export TOSDIR=$TOSROOT/tos
+#export CLASSPATH=$TOSROOT/support/sdk/java/tinyos.jar:.
+#export MAKERULES=$TOSROOT/support/make/Makerules
+#export PATH=/opt/msp430/bin:$PATH
+
+# for homebrew
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+#export HOMEBREW_TEMP=/usr/local/tmp
+export HOMEBREW_MAKE_JOBS=8
+export MAKEFLAGS="-j 8"
+
+# for cuda
+PATH=/usr/local/cuda/bin:$PATH
+
+# misc
+PATH=$HOME/Projects/home/bin:$HOME/Projects/home/bin/darwin:$PATH
+
+# for node.js
+export NODE_PATH=/usr/local/lib/node_modules
+
+export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
+export ANDROID_NDK_ROOT=/usr/local/Cellar/android-ndk/r10c
+
+export DOCKER_HOST=tcp://localhost:4243
+
+export ATOM_PATH=~/Applications
+
+# OPAM configuration
+#. /Users/miyaki/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+#PERL_MB_OPT="--install_base \"/Users/miyaki/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/Users/miyaki/perl5"; export PERL_MM_OPT;
+
+export OPENNI2_INCLUDE=/usr/local/include/ni2
+export OPENNI2_REDIST=/usr/local/lib/ni2
+
+# history
+function peco-select-history() {
+  typeset tac
+  if which tac > /dev/null; then
+    tac=tac
+  else
+    tac='tail -r'
+  fi
+  BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle -R -c
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# integrate all source code with ghq
+function peco-src() {
+  local selected_dir=$(ghq list | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${GOPATH}/src/${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+stty -ixon
+bindkey '^s' peco-src
+
+# process kill
+function peco-pkill() {
+  for pid in `ps auwx | peco | awk '{ print $2 }'`
+  do
+    kill $pid
+    echo "Killed ${pid}"
+  done
+}
+alias pk="peco-pkill"
+
+#### time
+REPORTTIME=8
+TIMEFMT="\
+    The name of this job.             :%J
+    CPU seconds spent in user mode.   :%U
+    CPU seconds spent in kernel mode. :%S
+    Elapsed time in seconds.          :%E
+    The  CPU percentage.              :%P"

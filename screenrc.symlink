@@ -1,0 +1,46 @@
+# .screenrc
+# $Date$
+#
+vbell on
+autodetach on
+startup_message off
+
+#remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+#make them better
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
+
+#defkanji euc
+#kanji euc
+defkanji utf-8
+defencoding utf-8
+escape ^z^z
+#defhstatus "^En:^Et"
+
+bind -c REGION 0 remove
+bind -c REGION 1 only
+bind -c REGION 2 split
+bind -c REGION 3 split -v
+bind -c REGION o focus
+bind -c REGION \^ resize
+bind x command -c REGION
+
+hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+
+bind 'U' eval "encoding utf8" "stuff 'export LANG=ja_JP.UTF-8\012'"
+bind 'E' eval "encoding euc"  "stuff 'export LANG=ja_JP.EUC-JP\012'"
+
+# for Debian GNU/Linux
+#bindkey -k kb stuff \010
+
+defbce "on"
+term xterm-256color
