@@ -2,6 +2,7 @@
 *.dat
 *.desktop
 *.eld
+.cask
 SessionDesktop.el
 elpa
 elscreen

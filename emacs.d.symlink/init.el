@@ -4,114 +4,125 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
-(package-refresh-contents)
 
-(package-install 'ace-jump-mode)
-(package-install 'anzu)
-(package-install 'async)
-(package-install 'auctex)
-(package-install 'auctex-latexmk)
-(package-install 'auto-install)
-(package-install 'bind-key)
-(package-install 'cider)
-(package-install 'clang-format)
-(package-install 'clmemo)
-(package-install 'clojure-mode)
-(package-install 'cmake-ide)
-(package-install 'cmake-mode)
-(package-install 'cmake-project)
-(package-install 'coffee-mode)
-(package-install 'company)
-(package-install 'company-go)
-(package-install 'company-irony)
-(package-install 'company-irony-c-headers)
-(package-install 'company-sourcekit)
-(package-install 'dash)
-(package-install 'dash-at-point)
-(package-install 'diminish)
-(package-install 'direx)
-(package-install 'dockerfile-mode)
-(package-install 'drag-stuff)
-(package-install 'edit-server)
-(package-install 'egg)
-(package-install 'eldoc-extension)
-(package-install 'elscreen)
-(package-install 'elscreen-persist)
-(package-install 'epl)
-(package-install 'esup)
-(package-install 'exec-path-from-shell)
-(package-install 'expand-region)
-(package-install 'f)
-(package-install 'flycheck)
-(package-install 'flycheck-clojure)
-(package-install 'flycheck-google-cpplint)
-(package-install 'flycheck-irony)
-(package-install 'fringe-helper)
-(package-install 'ghq)
-(package-install 'git-dwim)
-(package-install 'git-gutter)
-(package-install 'github-browse-file)
-(package-install 'glsl-mode)
-(package-install 'go-autocomplete)
-(package-install 'go-eldoc)
-(package-install 'go-mode)
-(package-install 'highlight-symbol)
-(package-install 'hl-line+)
-(package-install 'htmlize)
-(package-install 'idle-highlight-mode)
-(package-install 'irony)
-(package-install 'js2-mode)
-(package-install 'json-mode)
-(package-install 'json-reformat)
-(package-install 'json-snatcher)
-(package-install 'key-intercept)
-(package-install 'keyfreq)
-(package-install 'langtool)
-(package-install 'let-alist)
-(package-install 'magit)
-(package-install 'markdown-mode)
-(package-install 'migemo)
-(package-install 'mkdown)
-(package-install 'multiple-cursors)
-(package-install 'nyan-mode)
-(package-install 'open-junk-file)
-(package-install 'org-tree-slide)
-(package-install 'package-build)
-(package-install 'pallet)
-(package-install 'pkg-info)
-(package-install 'popup)
-(package-install 'popwin)
-(package-install 'powerline)
-(package-install 'prodigy)
-(package-install 'projectile)
-(package-install 'queue)
-(package-install 'rainbow-delimiters)
-(package-install 's)
-(package-install 'savekill)
-(package-install 'scratch-log)
-(package-install 'sequential-command)
-(package-install 'shut-up)
-(package-install 'slamhound)
-(package-install 'smart-mode-line)
-(package-install 'smart-mode-line-powerline-theme)
-(package-install 'smart-newline)
-(package-install 'smart-tabs-mode)
-(package-install 'smartparens)
-(package-install 'smex)
-(package-install 'sr-speedbar)
-(package-install 'tab-group)
-(package-install 'tabbar)
-(package-install 'term+)
-(package-install 'term+key-intercept)
-(package-install 'term+mux)
-(package-install 'terraform-mode)
-(package-install 'use-package)
-(package-install 'wakatime-mode)
-(package-install 'web-mode)
-(package-install 'wgrep)
-(package-install 'yaml-mode)
-(package-install 'yasnippet)
-(package-install 'zenburn-theme)
+;; Packages to install from MELPA
+(defvar my/packages
+  '(
+    ace-jump-mode
+    anzu
+    async
+    auctex
+    auctex-latexmk
+    auto-async-byte-compile
+    auto-install
+    bind-key
+    cider
+    clang-format
+    clmemo
+    clojure-mode
+    cmake-ide
+    cmake-mode
+    cmake-project
+    coffee-mode
+    company
+    company-go
+    company-irony
+    company-irony-c-headers
+    company-sourcekit
+    dash
+    dash-at-point
+    diminish
+    direx
+    dockerfile-mode
+    drag-stuff
+    edit-server
+    egg
+    eldoc-extension
+    elscreen
+    elscreen-persist
+    epl
+    esup
+    exec-path-from-shell
+    expand-region
+    f
+    flycheck
+    flycheck-clojure
+    flycheck-google-cpplint
+    flycheck-irony
+    fringe-helper
+    ghq
+    git-dwim
+    git-gutter
+    github-browse-file
+    glsl-mode
+    go-autocomplete
+    go-eldoc
+    go-mode
+    highlight-symbol
+    hl-line+
+    htmlize
+    idle-highlight-mode
+    irony
+    js2-mode
+    json-mode
+    json-reformat
+    json-snatcher
+    key-intercept
+    keyfreq
+    langtool
+    let-alist
+;    magit
+    markdown-mode
+    migemo
+    mkdown
+    multiple-cursors
+    nyan-mode
+    open-junk-file
+    org-tree-slide
+    package-build
+    pallet
+    pkg-info
+    popup
+    popwin
+    powerline
+    prodigy
+    projectile
+    projectile-speedbar
+    queue
+    rainbow-delimiters
+    s
+    savekill
+    scratch-log
+    sequential-command
+    shut-up
+    slamhound
+    smart-mode-line
+    smart-mode-line-powerline-theme
+    smart-newline
+    smart-tabs-mode
+    smartparens
+    smex
+    sr-speedbar
+    tab-group
+    tabbar
+    term+
+    term+key-intercept
+    term+mux
+    terraform-mode
+    use-package
+    wakatime-mode
+    web-mode
+    wgrep
+    yaml-mode
+    yasnippet
+    zenburn-theme
+    )
+  "A list of packages to install from MELPA at launch.")
+
+;; Install Melpa packages
+(dolist (package my/packages)
+  (when (or (not (package-installed-p package)))
+    (package-install package)))
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp"))
 
@@ -557,10 +568,6 @@
   (progn
     ))
 
-(use-package magit
-  :defer t
-  :bind
-  ("C-x g" . magit-status))
 
 (use-package powerline
   :init
