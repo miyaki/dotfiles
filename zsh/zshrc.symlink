@@ -145,15 +145,15 @@ export MAKEFLAGS="-j 8"
 PATH=/usr/local/cuda/bin:$PATH
 
 # misc
-PATH=$HOME/Projects/home/bin:$HOME/Projects/home/bin/darwin:$PATH
+# PATH=$HOME/Projects/home/bin:$HOME/Projects/home/bin/darwin:$PATH
 
 # for node.js
 export NODE_PATH=/usr/local/lib/node_modules
 
-export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
-export ANDROID_NDK_ROOT=/usr/local/Cellar/android-ndk/r10c
+# export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
+# export ANDROID_NDK_ROOT=/usr/local/Cellar/android-ndk/r10c
 
-export DOCKER_HOST=tcp://localhost:4243
+# export DOCKER_HOST=tcp://localhost:4243
 
 export ATOM_PATH=~/Applications
 

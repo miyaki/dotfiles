@@ -1,15 +1,13 @@
 # Local/private config goes in the include
 [include]
         path = ~/.gitconfig.local
-[hub]
-        protocol = https
 [alias]
         co = checkout
-	ci = commit -v
-	st = status -sb
-	up = pull --rebase
-	br = branch -a
-	lo = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+        ci = commit -v
+        st = status -sb
+        up = pull --rebase
+        br = branch -a
+        lo = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
         promote = !$ZSH/bin/git-promote
         wtf     = !$ZSH/bin/git-wtf
         rank-contributors = !$ZSH/bin/git-rank-contributors
@@ -22,13 +20,13 @@
 [core]
         excludesfile = ~/.gitignore
         editor = vim
-	pager = lv
-	quotepath = false
-	autocrlf = input
-	safecrlf = warn
-	precomposeunicode = true
+        pager = lv
+        quotepath = false
+        autocrlf = input
+        safecrlf = warn
+        precomposeunicode = true
 [ghq]
-	root = ~/src
+        root = ~/src
 [apply]
         whitespace = nowarn
 [mergetool]

@@ -271,10 +271,12 @@
   :init (global-anzu-mode 1))
 
 (use-package auctex
-  :mode ("\\.tex\\'" . auctex-mode)
+  :ensure t
+  :mode ("\\.tex\\'" . latex-mode)
   :commands (latex-mode LaTeX-mode plain-tex-mode)
   :init
   (progn
+    (add-hook 'LaTeX-mode-hook (lambda () (setq compile-command "latexmk -pdf")))
     )
   )
 
