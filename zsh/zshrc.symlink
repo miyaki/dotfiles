@@ -204,6 +204,9 @@ function peco-pkill() {
 }
 alias pk="peco-pkill"
 
+source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
 #### time
 REPORTTIME=8
 TIMEFMT="\

@@ -51,8 +51,6 @@
     flycheck-irony
     fringe-helper
     ghq
-    git-dwim
-    git-gutter
     github-browse-file
     glsl-mode
     go-autocomplete
@@ -71,7 +69,7 @@
     keyfreq
     langtool
     let-alist
-;    magit
+    magit
     markdown-mode
     migemo
     mkdown
@@ -532,20 +530,6 @@
     (use-package term+mux)
     (require 'xterm-256color)))
 
-(use-package git-gutter
-  :ensure t
-  :init
-  (progn
-    (global-git-gutter-mode t)
-    (git-gutter:linum-setup)
-    (bind-key "C-x C-g" 'git-gutter:toggle)
-    (bind-key "C-x v =" 'git-gutter:popup-hunk)
-    (bind-key "C-x p"   'git-gutter:previous-hunk)
-    (bind-key "C-x n"   'git-gutter:next-hunk)
-    (bind-key "C-x v s" 'git-gutter:stage-hunk)
-    (bind-key "C-x v r" 'git-gutter:revert-hunk)
-   ))
-
 
 (use-package go-mode
   :ensure t
@@ -570,6 +554,14 @@
   (progn
     ))
 
+(use-package magit
+  :init
+  (progn
+    ;; 今居るhunkの行内の差分に色付けする
+    (setq magit-diff-refine-hunk t)
+    ;; 空白の差を無視しない
+    (setq smerge-refine-ignore-whitespace nil)
+    ))
 
 (use-package powerline
   :init
