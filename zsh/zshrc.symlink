@@ -20,6 +20,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zgen/zgen.zsh" ]]; then
   # plugins
 fi
 
+[ -f $ZDOTDIR/.zshrc_`uname` ] && . $ZDOTDIR/.zshrc_`uname`
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 HISTFILE=$HOME/.zsh_history
@@ -203,9 +205,6 @@ function peco-pkill() {
   done
 }
 alias pk="peco-pkill"
-
-source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
 #### time
 REPORTTIME=8
