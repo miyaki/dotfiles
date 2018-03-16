@@ -1,0 +1,11 @@
+---
+- name: setup
+  hosts: all
+  tasks:
+  - include: macosx.yml
+    when: ansible_distribution|lower == "macosx"
+
+  - include: ubuntu.yml
+    when:
+      - ansible_distribution|lower == "ubuntu" 
+      - ansible_distribution_release == "xenial"

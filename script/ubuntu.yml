@@ -1,0 +1,25 @@
+#TODO: cuda
+
+- name: install prerequests
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - cmake
+    - libboost-dev
+    - libeigen3-dev
+    - libqhull-dev
+    - libvtk6-dev
+    - libopenni-dev
+    - libopenni2-dev
+    - libqt5gui5
+    - opencl-headers
+    - libyaml-cpp-dev
+    - libflann-dev
+    - libpcap-dev
+    - dkms
+    - libglm-dev
+
+- include: opencv.yml
+- include: libfreenect2.yml
+#nite2

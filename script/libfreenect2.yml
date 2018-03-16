@@ -1,0 +1,34 @@
+    - name: install prerequests
+      become: yes
+      apt: name={{item}} state=present
+      with_items:
+      - git
+      - cmake
+      - libgoogle-glog-dev
+      - libgflags-dev
+      - libatlas-base-dev
+      - libeigen3-dev
+      - libsuitesparse-dev
+
+    - name: checkout libfreenect2
+      git:
+        repo: https://github.com/miyaki/libfreenect2.git
+        version: openni2
+        dest: ~/src/github.com/miyaki/libfreenect2
+
+    - name: cmake libfreenct2
+      command:
+        sh -c 'mkdir build && cd build && cmake ..'
+        chdir="~/src/github.com/miyaki/libfreenect2"
+        creates="~/src/github.com/miyaki/libfreenect2/build/Makefile"
+
+    - name: compile opencv
+      command:
+        make -j12
+        chdir="{{ansible_user_dir}}/src/github.com/miyaki/libfreenect2/build"
+
+    - name: install opencv
+      become: yes
+      make:
+        chdir: "{{ansible_user_dir}}/src/github.com/miyaki/libfreenect2/build"
+        target: install

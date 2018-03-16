@@ -1,0 +1,29 @@
+# xcode-select --install
+# brew cask install java
+- homebrew_tap:
+    name: homebrew/science
+    state: present
+
+- homebrew_tap:
+    name: rkmtlab/misc
+    url: git@github.com:rkmtlab/homebrew-misc.git
+    state: present
+
+- homebrew:
+    name: opencv
+    options: c++11,with-contrib,with-gstreamer,with-tbb
+
+- homebrew: name={{ item }}
+  with_items:
+    - libusb
+    - yaml-cpp
+    - glm
+    - glfw
+    - pcl
+    - homebrew/science/openni2
+#    - rkmtlab/misc/nite2
+#    - rkmtlab/misc/gls
+
+- homebrew:
+    name: rkmtlab/misc/libfreenect2
+    options: HEAD

@@ -1,0 +1,71 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: add ansible ppa
+      apt_repository:
+        repo: 'ppa:ansible/ansible'
+
+    # install CUDA
+    - name: install CUDA repo package (16.04)
+      apt: deb=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+      when: (ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04")
+
+    - name: install CUDA
+      apt: name=cuda state=present update_cache=yes
+
+    # docker-ce
+    - name: add packages for https repo
+      apt: name={{item}} state=present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: add docker key
+      apt_key:
+        id: 0EBFCD88
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
+
+    - name: add docker repo
+      apt_repository:
+        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release|lower }} stable'
+        state: present
+        filename: 'docker'
+
+    - name: remove old docker-engine package
+      apt: name=docker-engine state=absent
+
+    - name: install docker-ce
+      apt: name=docker-ce state=present update_cache=yes
+
+    - name: hold docker-ce
+      shell: apt-mark hold docker-ce
+
+    # nvidia-docker
+    - name: install nvidia-docker
+      apt: deb=https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
+
+    # Google Cloud SDK
+    - name: add public key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: add gcloud repo
+      apt_repository:
+        repo: 'deb https://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release|lower }} main'
+        state: present
+        filename: 'google-cloud-sdk'
+
+    - name: install google-cloud-sdk
+      apt: name=google-cloud-sdk state=present update_cache=yes
+
+    # install hamachi
+    - name: install hamachi
+      apt: deb=http://vpn.net/installers/logmein-hamachi_2.1.0.174-1_amd64.deb
+
+    - name: dist-upgrade
+      apt:
+        upgrade: dist
