@@ -7,7 +7,7 @@
 
     # install CUDA
     - name: install CUDA repo package (16.04)
-      apt: deb=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+      apt: deb=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
       when: (ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04")
 
     - name: install CUDA

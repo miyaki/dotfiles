@@ -16,6 +16,8 @@
       become: yes
       apt_repository:
         repo: 'ppa:mikepurvis/ceres'
+      when:
+        - ansible_distribution_release ==  "xenial"
 
     - name: install ceres
       become: yes
@@ -33,7 +35,7 @@
 
     - name: cmake opencv
       command:
-        sh -c 'mkdir build && cd build && cmake .. -DOPENCV_EXTRA_MODULES_PATH=~/src/github.com/opencv/opencv_contrib/modules -DGFLAGS_LIBRARY=/usr/lib/x86_64-linux-gnu/libgflags.so -DGFLAGS_INCLUDE_DIR=/usr/include -DOPENCV_ENABLE_NONFREE=ON -DBUILD_opencv_dnn=OFF'
+        sh -c 'mkdir build && cd build && cmake .. -DOPENCV_EXTRA_MODULES_PATH=~/src/github.com/opencv/opencv_contrib/modules -DGFLAGS_LIBRARY=/usr/lib/x86_64-linux-gnu/libgflags.so -DGFLAGS_INCLUDE_DIR=/usr/include -DOPENCV_ENABLE_NONFREE=ON -DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr'
         chdir=~/src/github.com/opencv/opencv
         creates=~/src/github.com/opencv/opencv/build/Makefile
 
