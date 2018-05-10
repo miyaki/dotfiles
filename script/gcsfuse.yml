@@ -1,0 +1,16 @@
+- name: gcsfuse key
+  become: yes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: gcsfuse repo
+  become: yes
+  apt_repository:
+    repo: 'deb http://packages.cloud.google.com/apt gcsfuse-xenial main'
+    state: present
+    filename: 'gcsfuse'
+
+- name: gcsfuse
+  become: yes
+  apt: name=gcsfuse state=present update_cache=yes
