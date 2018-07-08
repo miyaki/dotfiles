@@ -1,1 +1,3 @@
 xontrib load coreutils docker_tabcomplete z
+$XONSH_COLOR_STYLE='lovelace'
+$EDITOR='/usr/bin/vim'
