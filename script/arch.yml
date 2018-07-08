@@ -1,0 +1,35 @@
+
+# depends on ansible-aur-git and pikaur
+#    - cuda, cudnn, zfs, docker, python-tensorflow-opt, lzop
+
+- name: install packages
+  become: yes
+  become_user: aur_builder
+  pacman: name={{ item }} state=present
+  with_items:
+    - docker
+
+- name: install packages
+  become: yes
+  become_user: aur_builder
+  aur: name={{ item }} use=pikaur skip_installed=true
+  with_items:
+    - franz-bin
+    - ghq
+    - google-chrome
+    - chrome-remote-desktop
+    - insync
+    - intel-mkl
+    - kr
+    - logmein-hamachi-beta
+    - lv
+#    - nixnote2
+#    - nvidia-docker
+    - pcl
+    - peco
+    - python-scikit-image
+    - ros-melodic-desktop
+    - skypeforlinux-stable-bin
+    - spotify
+    - tensorflow-opt
+    - xonsh
