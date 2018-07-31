@@ -39,17 +39,24 @@ pikaur -S --needed --noconfirm --noedit \
        nixnote2 \
        pcl \
        peco \
+       python-keras \
+       python-keras-applications \
+       python-keras-preprocessing \
        python-scikit-image \
        ros-melodic-desktop \
        skypeforlinux-stable-bin \
        spotify \
+       torch7-git \
+       torch7-trepl-git \
        xonsh
 
 if $GPU
 then
     pikaur -S --needed --noconfirm --noedit \
 	   caffe2 \
-	   nvidia-docker 
+	   nvidia-docker \
+           torch7-cutorch-git \
+           torch7-cudnn-git
 else
     pikaur -S --needed --noconfirm --noedit \
 	   caffe2-cpu
