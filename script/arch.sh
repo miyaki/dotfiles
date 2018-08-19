@@ -22,11 +22,10 @@ then
 else
     sudo pacman -S --needed --noconfirm \
 	 python-tensorflow-opt
-
 fi
 
-
 pikaur -S --needed --noconfirm --noedit \
+       code \
        franz-bin \
        ghq \
        google-chrome \
@@ -36,6 +35,7 @@ pikaur -S --needed --noconfirm --noedit \
        kr \
        logmein-hamachi-beta \
        lv \
+       mendeleydesktop \
        nixnote2 \
        pcl \
        peco \
@@ -60,4 +60,6 @@ then
 else
     pikaur -S --needed --noconfirm --noedit \
 	   caffe2-cpu
-fi
+if
+
+# mendeley
