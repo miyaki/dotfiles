@@ -53,13 +53,13 @@ pikaur -S --needed --noconfirm --noedit \
 if $GPU
 then
     pikaur -S --needed --noconfirm --noedit \
-	   caffe2 \
+	   caffe2-cuda \
 	   nvidia-docker \
            torch7-cutorch-git \
            torch7-cudnn-git
 else
     pikaur -S --needed --noconfirm --noedit \
-	   caffe2-cpu
+	   caffe2
 if
 
 # mendeley
