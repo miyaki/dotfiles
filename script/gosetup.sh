@@ -3,7 +3,7 @@
 if [ `uname -s` == 'Darwin' ]; then
   brew install go lv
 elif [ `uname -s` == 'Linux' ]; then
-  sudo apt-get install golang-go lv zsh
+  sudo apt-get install golang-go lv
 fi
 
 unset $GOROOT

@@ -2,14 +2,4 @@
 - name: setup
   hosts: all
   tasks:
-  - include: macosx.yml
-    when: ansible_distribution|lower == "macosx"
-
-  - include: ubuntu.yml
-    when:
-      - ansible_distribution|lower == "ubuntu"
-#      - ansible_distribution_release == "xenial" or ansible_distribution_release == "zesty"
-
-  - include: arch.yml
-    when:
-      - ansible_distribution|lower == "archlinux"
+  - include: "{{ ansible_distribution|lower }}.yml"
