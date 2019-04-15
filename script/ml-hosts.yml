@@ -3,60 +3,30 @@
   vars:
     shortver: "{{ ansible_distribution_version | regex_replace('\\.') }}"
   tasks:
+    - name: os check
+      fail: msg="not supported."
+      when: (ansible_distribution != "Ubuntu")
+
     - name: add ansible ppa
       apt_repository:
         repo: 'ppa:ansible/ansible'
 
     # install CUDA
+    - name: add nvidia key
+      apt_key:
+        url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/7fa2af80.pub
+
     - name: install CUDA repo package
       apt: deb=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/cuda-repo-ubuntu{{ shortver }}_10.1.105-1_amd64.deb
-      when: (ansible_distribution == "Ubuntu")
 
     - name: install CUDA
       apt: name=cuda state=present update_cache=yes
 
-    # docker-ce
-    - name: add prerequests for docker-ce
-      apt:
-        state: present
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
+    - name: install ML repo
+      apt: deb=http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/nvidia-machine-learning-repo-ubuntu{{ shortver }}_1.0.0-1_amd64.deb
 
-    - name: add docker repo key
-      apt_key:
-        id: 0EBFCD88
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        state: present
-
-    - name: add docker repo
-      apt_repository:
-        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release|lower }} stable'
-        state: present
-        filename: 'docker'
-
-    - name: remove old docker-engine package
-      apt: name=docker-engine state=absent
-
-    - name: install docker-ce
-      apt: name=docker-ce state=present update_cache=yes
-
-    - name: hold docker-ce
-      shell: apt-mark hold docker-ce
-
-    # nvidia-docker
-    - name: add nvidia-docker key
-      apt_key:
-        url: "https://nvidia.github.io/nvidia-docker/gpgkey"
-        state: present
-
-    - name: add nvidia-docker repo
-      shell: curl -s -L https://nvidia.github.io/nvidia-docker/{{ ansible_distribution|lower }}{{ ansible_distribution_version }}/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
-
-    - name: install nvidia-docker
-      apt: name=nvidia-docker2 state=present update_cache=yes
+    - name: install cudnn
+      apt: name=libcudnn7-dev state=present update_cache=yes
 
     # Google Cloud SDK
     - name: add gcloud repo key
