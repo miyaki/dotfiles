@@ -33,7 +33,6 @@ pikaur -S --needed --noconfirm --noedit \
        insync \
        intel-mkl \
        kr \
-       logmein-hamachi-beta \
        lv \
        mendeleydesktop \
        nixnote2 \

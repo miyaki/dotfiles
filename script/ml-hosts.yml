@@ -43,10 +43,6 @@
     - name: install google-cloud-sdk
       apt: name=google-cloud-sdk state=present update_cache=yes
 
-    # install hamachi
-    - name: install hamachi
-      apt: deb=http://vpn.net/installers/logmein-hamachi_2.1.0.198-1_amd64.deb state=present
-
     - name: dist-upgrade
       apt:
         upgrade: dist
