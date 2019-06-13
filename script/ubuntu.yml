@@ -19,5 +19,3 @@
       - dkms
       - libglm-dev
 
-- include: opencv.yml
-- include: libfreenect2.yml
