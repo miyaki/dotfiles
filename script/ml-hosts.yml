@@ -1,48 +1,9 @@
 - hosts: all
   become: yes
-  vars:
-    shortver: "{{ ansible_distribution_version | regex_replace('\\.') }}"
-  tasks:
-    - name: os check
-      fail: msg="not supported."
-      when: (ansible_distribution != "Ubuntu")
-
-    - name: add ansible ppa
-      apt_repository:
-        repo: 'ppa:ansible/ansible'
-
-    # install CUDA
-    - name: add nvidia key
-      apt_key:
-        url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/7fa2af80.pub
-
-    - name: install CUDA repo package
-      apt: deb=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/cuda-repo-ubuntu{{ shortver }}_10.1.105-1_amd64.deb
-
-    - name: install CUDA
-      apt: name=cuda state=present update_cache=yes
-
-    - name: install ML repo
-      apt: deb=http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu{{ shortver }}/{{ ansible_architecture }}/nvidia-machine-learning-repo-ubuntu{{ shortver }}_1.0.0-1_amd64.deb
-
-    - name: install cudnn
-      apt: name=libcudnn7-dev state=present update_cache=yes
-
-    # Google Cloud SDK
-    - name: add gcloud repo key
-      apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
-
-    - name: add gcloud repo
-      apt_repository:
-        repo: 'deb https://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release|lower }} main'
-        state: present
-        filename: 'google-cloud-sdk'
-
-    - name: install google-cloud-sdk
-      apt: name=google-cloud-sdk state=present update_cache=yes
-
-    - name: dist-upgrade
-      apt:
-        upgrade: dist
+  roles:
+    - nvidia.nvidia_driver
+    - nvidia.nvidia_docker
+    - uchida.nvidia-repo
+    - wtanaka.gcloud_sdk
+    - m4rcu5nl.zerotier-one
+    - oefenweb.insync

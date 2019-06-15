@@ -1,8 +1,0 @@
-- hosts: all
-  become: yes
-  roles:
-    - nvidia.nvidia_driver
-    - nvidia.nvidia_docker
-    - uchida.nvidia-repo
-    - wtanaka.gcloud_sdk
-    - m4rcu5nl.zerotier-one
