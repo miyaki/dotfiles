@@ -1,0 +1,15 @@
+---
+
+- src: nvidia.nvidia_driver
+
+- src: nvidia.nvidia_docker
+
+- src: uchida.nvidia-repo
+
+- src: wtanaka.gcloud_sdk
+
+- src: m4rcu5nl.zerotier-one
+
+- src: oefenweb.insync
+
+- src: pixelart.chrome
