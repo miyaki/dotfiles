@@ -17,18 +17,14 @@
     - franz-bin
     - ghq
     - google-chrome
-    - chrome-remote-desktop
     - insync
     - intel-mkl
     - kr
     - lv
-#    - nixnote2
-#    - nvidia-docker
+    - nvidia-container-toolkit
     - pcl
     - peco
     - python-scikit-image
     - ros-melodic-desktop
     - skypeforlinux-stable-bin
-    - spotify
-    - tensorflow-opt
     - xonsh
