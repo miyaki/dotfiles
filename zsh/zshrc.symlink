@@ -81,6 +81,7 @@ alias ls='ls -F' la='ls -a' l='ls -l' ll='ls -al | more' lt='ls -lt'
 alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
 alias today='date +%F'
 alias ec='emacsclient -n'
+alias df='df -x squashfs -x tmpfs -x overlay'
 
 setenv () {export $1="$@[2,-1]"}
 unsetenv (){unset $1}
@@ -109,11 +110,11 @@ export MANPATH=/usr/local/man:$MANPATH
 ###latex### see /usr/local/texlive/2014/texmf.cnf
 #export TEXINPUTS=~/home/share/texinputs/:
 export BIBINPUTS=.:$HOME/Projects/Publications
-PATH=/usr/local/texlive/2015/bin/x86_64-darwin:$PATH
+#PATH=/usr/local/texlive/2015/bin/x86_64-darwin:$PATH
 
 ###python###
 #export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/usr/local/lib/python2.7/site-packages/gtk-2.0
-PATH=/usr/local/share/python:$PATH
+#PATH=/usr/local/share/python:$PATH
 #export JYTHON_HOME=/usr/local/Cellar/jython/2.5.3/libexec
 
 ###perl###
@@ -122,79 +123,39 @@ PATH=/usr/local/share/python:$PATH
 ###ruby###
 #export RUBYLIB=$HOME/local/lib/ruby/site_ruby/1.8:$HOME/lib/ruby
 #export GEM_PATH=$HOME/local/lib/ruby/gem
-export GEM_HOME=$HOME/.gems
-PATH=$GEM_HOME/bin:$PATH
+#export GEM_HOME=$HOME/.gems
+#PATH=$GEM_HOME/bin:$PATH
 
 # for Go lang
 export GOPATH=$HOME
-export GOROOT=$HOME/src/github.com/golang/go
+#export GOROOT=$HOME/src/github.com/golang/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-# for TinyOS
-#export TOSROOT=/opt/tinyos-2.1.0
-#export TOSDIR=$TOSROOT/tos
-#export CLASSPATH=$TOSROOT/support/sdk/java/tinyos.jar:.
-#export MAKERULES=$TOSROOT/support/make/Makerules
-#export PATH=/opt/msp430/bin:$PATH
-
 # for homebrew
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
+#PATH=/usr/local/bin:/usr/local/sbin:$PATH
 #export HOMEBREW_TEMP=/usr/local/tmp
-export HOMEBREW_MAKE_JOBS=8
-export MAKEFLAGS="-j 8"
+#export HOMEBREW_MAKE_JOBS=8
+#export MAKEFLAGS="-j 8"
 
 # for cuda
 PATH=/usr/local/cuda/bin:$PATH
 
-# misc
-# PATH=$HOME/Projects/home/bin:$HOME/Projects/home/bin/darwin:$PATH
+if [[ -s "/usr/share/fzf/completion.zsh" ]]; then
+  source "/usr/share/fzf/completion.zsh"
+  source "/usr/share/fzf/key-bindings.zsh"
+fi
 
-# for node.js
-export NODE_PATH=/usr/local/lib/node_modules
-
-# export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
-# export ANDROID_NDK_ROOT=/usr/local/Cellar/android-ndk/r10c
-
-# export DOCKER_HOST=tcp://localhost:4243
-
-export ATOM_PATH=~/Applications
-
-# OPAM configuration
-#. /Users/miyaki/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-#PERL_MB_OPT="--install_base \"/Users/miyaki/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/Users/miyaki/perl5"; export PERL_MM_OPT;
-
-export OPENNI2_INCLUDE=/usr/local/include/ni2
-export OPENNI2_REDIST=/usr/local/lib/ni2
-
-# history
-function peco-select-history() {
-  typeset tac
-  if which tac > /dev/null; then
-    tac=tac
-  else
-    tac='tail -r'
-  fi
-  BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
-  CURSOR=$#BUFFER
-  zle -R -c
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
-
-# integrate all source code with ghq
-function peco-src() {
-  local selected_dir=$(ghq list | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${GOPATH}/src/${selected_dir}"
+function ghq-fzf() {
+  local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*")
+  if [ -n "$src" ]; then
+    BUFFER="cd $(ghq root)/$src"
     zle accept-line
   fi
-  zle clear-screen
+  zle -R -c
 }
-zle -N peco-src
+zle -N ghq-fzf
 stty -ixon
-bindkey '^s' peco-src
+bindkey '^s' ghq-fzf
 
 # process kill
 function peco-pkill() {

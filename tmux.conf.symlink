@@ -1,2 +1,1 @@
 set-option -g prefix C-z
-set-window-option -g utf8 on
